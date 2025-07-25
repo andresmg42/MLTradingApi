@@ -1,0 +1,21 @@
+services:
+  plot_service:
+      build: ./Generate
+      container_name: plot_service
+      ports:
+        - "8002:8002"
+      environment:
+        - SUPABASE_URL=${SUPABASE_URL}
+        - SUPABASE_KEY=${SUPABASE_KEY}
+      restart: always
+        
+  client_server:
+    build: ./client
+    container_name: client_serve
+    environment:
+      - VITE_SUPABASE_URL=${SUPABASE_URL}
+      - VITE_SUPABASE_KEY=${SUPABASE_KEY}
+    ports:
+      - "80:80"
+    restart: always
+  
