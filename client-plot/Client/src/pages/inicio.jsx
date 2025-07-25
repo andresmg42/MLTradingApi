@@ -4,9 +4,7 @@ import Fondo_AI from '../assets/Fondo_AI.jpg';
 import axios from 'axios';
 import { RingLoader } from 'react-spinners';
 import Swal from "sweetalert2";
-import api_inference from '../apis/api_inference'
-import api_plot from '../apis/api_plot'
-import api_train from '../apis/api_train'
+
 
 export function Inicio() {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,10 +58,10 @@ export function Inicio() {
   
     try {
       if (selectedOption === 'twitter') {
-        const R0 = await api_train.get('/train/twitter', TrainData);
+        const R0 = await axios.get('/train/twitter', TrainData);
         console.log('Respuesta entrenamiento', R0.data); 
       } else {
-        const R1 = await api_train.post('/train/yahoofinance', TrainData);
+        const R1 = await axios.post('/train/yahoofinance', TrainData);
         console.log('Respuesta entrenamiento', R1.data);
       }
       setTrained(true);
@@ -88,7 +86,8 @@ export function Inicio() {
     };
 
     try {
-      const R2 = await api_inference.post('/inference', InferenceDate);
+      console.log(InferenceDate)
+      const R2 = await axios.post('/inference/', InferenceDate);
       console.log('Respuesta Inferencia', R2.data);
       console.log('Respuesta Inferencia', R2.data.path);
       setPlotUrl(R2.data.path);
@@ -102,35 +101,15 @@ export function Inicio() {
   }
 
   const procesarFechasDeInicio = (start) => {
-    const startDateTrain = new Date(startDate) 
-    const startDateInference = new Date(start) 
-   
-    if(startDateInference < startDateTrain){
-      Swal.fire({
-        icon:  'warning',
-        title: 'Error en las fechas de inicio',
-        text: 'La fecha de inicio de la inferencia debe ser mayor que la fecha de inicio del entrenamiento',
-        confirmButtonText: 'Cerrar'
-      })
-    }else {
+     
       setStartDateIn(start)
-    }
+    
   }
 
   const procesarFechasDeFinalizacion = (end) => {
-    const endDateTrain = new Date(endDate)
-    const endDateInference = new Date(end)
     
-    if(endDateInference >= endDateTrain){
-      Swal.fire({
-        icon:  'warning',
-        title: 'Error en las fechas de finalizacion',
-        text: 'La fecha final de la inferencia debe ser menor o igual que la fecha final del entrenamiento',
-        confirmButtonText: 'Cerrar'
-      })
-    }else{
       setEndDateIn(end)
-    } 
+    
   }
   
   const obtenerGrafica = async (e) => {
@@ -138,7 +117,7 @@ export function Inicio() {
     setLoadingState('Cargando imagen...'); 
     e.preventDefault();
     try {
-      const response = await api_plot.post('/plot',
+      const response = await axios.post('http://44.221.149.40:8002/plot',
         { url: plotUrl },
         { responseType: 'blob' }
       );
