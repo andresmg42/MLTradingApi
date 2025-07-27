@@ -1,0 +1,14 @@
+services:
+  ray_server_train:
+    build: ./                 
+    container_name: train_server
+    shm_size: "2gb"
+    environment:
+      - RAY_memory_usage_threshold=0.95
+      - RAY_OBJECT_STORE_MEMORY=2000000000
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    ports:
+      - "8000:8000"
+    restart: always
+    mem_limit: 8g   
