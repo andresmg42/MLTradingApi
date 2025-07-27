@@ -39,7 +39,7 @@ systemctl enable docker
 # 4. Clone the Application Repository
 # Clones the project into the root user's home directory (/root/)
 
-git clone https://github.com/andresmg42/MLAPI.git
+git clone https://github.com/andresmg42/MLTradingApi.git
 
 cd MLAPI
 
