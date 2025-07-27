@@ -43,8 +43,6 @@ git clone https://github.com/andresmg42/MLAPI.git
 
 cd MLAPI
 
-git switch join
-
 cd client-plot
 
 
