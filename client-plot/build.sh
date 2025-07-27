@@ -41,7 +41,7 @@ systemctl enable docker
 
 git clone https://github.com/andresmg42/MLTradingApi.git
 
-cd MLAPI
+cd MLTradingApi
 
 cd client-plot
 
