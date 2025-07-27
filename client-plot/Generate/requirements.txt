@@ -1,0 +1,7 @@
+numpy==1.26.4
+matplotlib
+supabase
+pydantic
+fastapi[standard]
+pandas
+python-dotenv
