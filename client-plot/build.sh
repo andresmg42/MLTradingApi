@@ -39,7 +39,7 @@ systemctl enable docker
 
 #clone the repo
 
-git clone https://github.com/andresmg42/MLAPI.git
+git clone https://github.com/andresmg42/MLTradingApi.git
 
 cd MLAPI
 
