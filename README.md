@@ -74,14 +74,14 @@ steps:
   - select Create key pair, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
   - in Network settings section select **edit**
   - VPC - required select the previus vpc created (ml-api-vpc)
-  - in Subnet select the previus public subnet created into ml-api-vpc **(ml-api-subnet-private-1-us-east-1a)**
+  - in Subnet select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-1-us-east-1a)**
   - in Auto-assign public IP select **Disable**
   - in Firewall (security groups) select **Select existing security group**
   - in Common security groups select ***train-sec-group**
   - expand **Advanced network configuration**
   - in Primary IP type **10.0.1.33**, leave the same in this section of Advanced network configuration
   - in Configure storage select section change to **1x10 GiB**
-  - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of trainapi directory from this proyecto or copy and paste the next bash code:
+  - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of trainapi directory from this proyect or copy and paste the next bash code:
 
 ```
 #!/bin/bash
@@ -139,6 +139,72 @@ cd trainapi
 docker compose build
 docker compose up -d
 ```
+  - select **Launch instance**
+
+### 6. Create an EC2 instance to inferenceapi
+steps:
+  - go to EC2 amazon service
+  - in Instances section into EC2 dashboard select Launch instances
+  - in Name and tags type **inference**
+  - in Application and OS Images (Amazon Machine Image)  select **Ubuntu Server 24.04 LTS (HVM)**
+  - in Instance type choose **t2.medium** or higher
+  - in Key pair (login) select Create a new key pair or use the previus key pair created in the trainapi instance
+  - in Private key file format choose **RSA**
+  - in Private key file format choose **.pem**
+  - select Create key pair, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
+  - in Network settings section select **edit**
+  - VPC - required select the previus vpc created **(ml-api-vpc)**
+  - in Subnet select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-2-us-east-1a)**
+  - in Auto-assign public IP select **Disable**
+  - in Firewall (security groups) select **Select existing security group**
+  - in Common security groups select ***inference-sec-group**
+  - expand **Advanced network configuration**
+  - in Primary IP type **10.0.2.177**, leave the same in this section of Advanced network configuration
+  - in Configure storage leave by default
+  - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next two lines which are located almost at the end of the bash code to:
+```
+cd MLAPI
+
+cd inferenceapi
+```
+  - select **Launch instance**}
+
+### 7. Create an EC2 instance to client
+steps:
+  - go to EC2 amazon service
+  - in Instances section into EC2 dashboard select Launch instances
+  - in Name and tags type **client**
+  - in Application and OS Images (Amazon Machine Image)  select **Ubuntu Server 24.04 LTS (HVM)**
+  - in Instance type choose **t2.medium** or higher
+  - in Key pair (login) select Create a new key pair or use the previus key pair created in the trainapi instance
+  - in Private key file format choose **RSA**
+  - in Private key file format choose **.pem**
+  - select Create key pair, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
+  - in Network settings section select **edit**
+  - VPC - required select the previus vpc created **(ml-api-vpc)**
+  - in Subnet select the previus public subnet created into ml-api-vpc **(ml-api-subnet-public-1-us-east-1a)**
+  - in Auto-assign public IP select **Disable**
+  - in Firewall (security groups) select **Select existing security group**
+  - in Common security groups select ***client-sec-group**
+  - in Configure storage leave by default
+  - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next two lines which are located almost at the end of the bash code to:
+```
+cd MLAPI
+
+cd client-plot
+```
+  - select **Launch instance**
+### 8. Associate the previus elastic Ip created
+steps:
+  - go to VPC service of aws
+  - in the section of Virtual private cloud in VPC dashboard select **Elastic IPs**
+  - select previus Elastic IP created in the fourth step
+  - above of ips table select **Actions** button and select **Associate Elastic IP address**
+  - in Resource type leave **Instance**
+  - in Instance choose **client**
+  - select Associate
+
+
 
 
  
