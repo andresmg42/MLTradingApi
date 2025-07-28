@@ -179,7 +179,7 @@ steps:
   - in Network settings section select **edit**
   - VPC - required select the previus vpc created **(ml-api-vpc)**
   - in Subnet select the previus public subnet created into ml-api-vpc **(ml-api-subnet-public-1-us-east-1a)**
-  - in Auto-assign public IP select **Disable**
+  - in Auto-assign public IP select **Enable**
   - in Firewall (security groups) select **Select existing security group**
   - in Common security groups select ***client-sec-group**
   - in Configure storage leave by default
