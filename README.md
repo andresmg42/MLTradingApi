@@ -125,11 +125,9 @@ systemctl enable docker
 # 4. Clone the Application Repository
 # Clones the project into the root user's home directory (/root/)
 
-git clone https://github.com/andresmg42/MLAPI.git
+git clone https://github.com/andresmg42/MLTradingApi.git
 
-cd MLAPI
-
-cd trainapi
+cd MLTradingApi/trainapi
 
 # Build and run the containers.
 # NOTE: Using 'docker compose' (with a space) which is the command for the v2 plugin.
@@ -163,9 +161,7 @@ steps:
   - in Configure storage leave by default
   - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next two lines which are located almost at the end of the bash code to:
 ```
-cd MLAPI
-
-cd inferenceapi
+cd  MLTradingApi/inferenceapi
 ```
   - select **Launch instance**}
 
@@ -189,9 +185,7 @@ steps:
   - in Configure storage leave by default
   - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next two lines which are located almost at the end of the bash code to:
 ```
-cd MLAPI
-
-cd client-plot
+cd MLTradingApi/client-plot
 ```
   - select **Launch instance**
 ### 8. Associate the previus elastic Ip created
