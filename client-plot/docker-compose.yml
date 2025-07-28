@@ -10,7 +10,7 @@ services:
       restart: always
         
   client_server:
-    build: ./client
+    build: ./Client
     container_name: client_serve
     environment:
       - VITE_SUPABASE_URL=${SUPABASE_URL}
