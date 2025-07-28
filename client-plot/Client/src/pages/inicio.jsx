@@ -117,7 +117,7 @@ export function Inicio() {
     setLoadingState('Cargando imagen...'); 
     e.preventDefault();
     try {
-      const response = await axios.post('http://44.221.149.40:8002/plot',
+      const response = await axios.post('/plot/',
         { url: plotUrl },
         { responseType: 'blob' }
       );

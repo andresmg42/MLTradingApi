@@ -8,6 +8,8 @@ services:
         - SUPABASE_URL=${SUPABASE_URL}
         - SUPABASE_KEY=${SUPABASE_KEY}
       restart: always
+      networks:
+        - appnet
         
   client_server:
     build: ./Client
@@ -18,4 +20,9 @@ services:
     ports:
       - "80:80"
     restart: always
+    networks:
+      - appnet
+networks:
+  appnet:
+    driver: bridge
   
