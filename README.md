@@ -13,19 +13,24 @@ steps:
   - in IPv6 CIDR block select **No IPv6 CIDR block**
   - in Number of Availability Zones (AZs) choose **1**
   - in Number of public subnets choose **1**
-  - Number of private subnets choose **2**
+  - in Number of private subnets choose **2**
   - in NAT gateways choose **None**
   - VPC endpoints chose **s3 Gateway**
   - finally click in  **Create VPC**
+    
 ### 2. Create a Nat Gateway
 
 steps:
+  - in VPC services go to VPC dashboard
+  - in Virtual private network section choose **NAT gateways**
+  - into Nat gateways section choose **Create NAT gateway**
   - type a name of the nat gateway **(ml-nat-gateway-01)**
   - in Subnet chose the previus public subnet created in the VPC
   - in Connectivity type choose **Public**
   - Chose **Create NAT gateway**
 
 ### 3. Create Security Groups
+
   ### security group to trainapi
 steps:
   - go to Security section of VPC dashboard
@@ -35,11 +40,12 @@ steps:
   - in description type **"allows TCP 8000 access"**
   - in VPC choose the previus VPC created **(ml-api)**
   - select "add-rule" in Inbound rules section
-  - in Type choose **SSH**
+  - in **Type** choose **SSH**
   - then again select **add rule**
   - in Type choose **Custom  TCP**, and in Port range choose **8000**
   - In Destionation choose **Anywhere-IPv4**
   - finally select **Create security group**
+    
   ### security group to inference api
 steps:
   - do the same, but in Security group name type **"inference-sec-group"**
@@ -47,21 +53,15 @@ steps:
   - in Type choose **Custom  TCP**, and in Port range choose **8001**
   - do the same to everything else
 
-  ### security group to inference api
+  ### security group to Client and Plot apis
 steps:
   - do the same, but in Security group name type **"client-sec-group"**
   - in description type **"allows TCP 80, 8002 access"**
   - in Type choose **Custom  TCP**, and in Port range choose **80**
   - add another rule whit the **8002** port like the above rule
   - do the same to everything else
-### 4. Create an public Elastic IP
-steps:
-  - go to Elastic IPs section into VPC dashboard in Virtual private cloud
-  - select Allocate Elastic Ip adress
-  - in Public IPv4 address pool chosse **Amazon's pool of IPv4 addresses**
-  - in Network border group leave **us-east-1**
-  -  Select **Allocate**
-### 5. Create an EC2 instance to trainapi
+
+### 4. Create an EC2 instance to trainapi
 steps:
   - go to EC2 amazon service
   - in Instances section into EC2 dashboard select Launch instances
@@ -139,10 +139,10 @@ docker compose up -d
 ```
   - select **Launch instance**
 
-### 6. Create an EC2 instance to inferenceapi
+### 5. Create an EC2 instance to inferenceapi
 steps:
   - go to EC2 amazon service
-  - in Instances section into EC2 dashboard select Launch instances
+  - in Instances section into EC2 dashboard select **Launch instances**
   - in Name and tags type **inference**
   - in Application and OS Images (Amazon Machine Image)  select **Ubuntu Server 24.04 LTS (HVM)**
   - in Instance type choose **t2.medium** or higher
@@ -151,7 +151,7 @@ steps:
   - in Private key file format choose **.pem**
   - select Create key pair, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
   - in Network settings section select **edit**
-  - VPC - required select the previus vpc created **(ml-api-vpc)**
+  - in **VPC - required** select the previus vpc created **(ml-api-vpc)**
   - in Subnet select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-2-us-east-1a)**
   - in Auto-assign public IP select **Disable**
   - in Firewall (security groups) select **Select existing security group**
@@ -165,7 +165,7 @@ cd  MLTradingApi/inferenceapi
 ```
   - select **Launch instance**}
 
-### 7. Create an EC2 instance to client
+### 6. Create an EC2 instance to client
 steps:
   - go to EC2 amazon service
   - in Instances section into EC2 dashboard select Launch instances
@@ -188,15 +188,26 @@ steps:
 cd MLTradingApi/client-plot
 ```
   - select **Launch instance**
-### 8. Associate the previus elastic Ip created
+
+### 7. Browse to Client Interface to prove the MLTradingApi
+
 steps:
-  - go to VPC service of aws
-  - in the section of Virtual private cloud in VPC dashboard select **Elastic IPs**
-  - select previus Elastic IP created in the fourth step
-  - above of ips table select **Actions** button and select **Associate Elastic IP address**
-  - in Resource type leave **Instance**
-  - in Instance choose **client**
-  - select Associate
+  - go to EC2 AWS service
+  - in the EC2 dashboard select instances
+  - in the instances list deployed, select client
+  - in **Details** section look for **Public DNS** or **Public IPv4 address**
+  - copy and paste whatever previus address you want in a browser
+  - Into API deployed you will see a simple form to train the model
+  - in the first input choose a index of those available
+  - choose a start date and end date to train the model
+  - then, click in **Train Model**
+  - wait a moment while the train is executed, for S&P500 it can take at least two minuts
+  - then selet the ticker which you want to make the inference in the new form
+  - again choose the start and end dates to make the inference
+  - click in **Made Inference**, this also take any minuts
+  - finally click in the new button called **Generate Gráphic**, this will show a graphic from the inference
+  - to make a new train, only close the graphic and select **New Train** at the top of the form.
+
 
 
 
