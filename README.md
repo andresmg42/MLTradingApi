@@ -204,7 +204,7 @@ steps:
   - wait a moment while the train is executed, for S&P500 it can take at least two minuts
   - then selet the ticker which you want to make the inference in the new form
   - again choose the start and end dates to make the inference
-  - click in **Made Inference**, this also take any minuts
+  - click in **Made Inference**, this also take any seconds
   - finally click in the new button called **Generate Gráphic**, this will show a graphic from the inference
   - to make a new train, only close the graphic and select **New Train** at the top of the form.
 
