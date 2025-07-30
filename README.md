@@ -14,6 +14,10 @@ steps:
   - in **Number of Availability Zones (AZs)** choose **1**
   - in **Number of public subnets** choose **1**
   - in **Number of private subnets** choose **2**
+  - expand **Customize subnets CIDR blocks** section
+  - in **Public subnet CIDR block in us-east-1a** type **10.0.0.0/24**
+  - in **Private subnet CIDR block in us-east-1a** type **10.0.1.0/24**
+  - in **Private subnet CIDR block in us-east-1a** type **10.0.2.0/24**
   - in **NAT gateways** choose **None**
   - in **VPC endpoints** chose **s3 Gateway**
   - finally click in  **Create VPC**
