@@ -206,7 +206,7 @@ steps:
   - in **Firewall (security groups)** select **Select existing security group**
   - in **Common security groups** select ***client-sec-group**
   - in **Configure storage** leave by default
-  - in **Advanced details** section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next line which is located almost at the end of the bash code to:
+  - in **Advanced details** section down to User **data - optional** section and in the tex box upload the build.sh file of client-plot directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next line which is located almost at the end of the bash code to:
 ```
 cd MLTradingApi/client-plot
 ```
