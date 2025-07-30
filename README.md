@@ -33,6 +33,25 @@ steps:
   - in **Connectivity type** choose **Public**
   - Chose **Create NAT gateway**
 
+### 3. Edit the route table for private subnets
+steps:
+  - in VPC dashboard, into **Virtual private cloud** select **Route Tables**
+  - you will can see a table whit your **Subnets** and additional information about route associations. This step is only for private subnets because the public subnet already is associated automatically whit the gateway previusly created. now you need associate the two private networks whit the NAT gateway previusly created.
+  - first select the first private subnet that is **ml-api-vpc-rtb-private1-us-east-1a**
+  - in the below section about selected subnet open the **Routes** tab
+  - select **Edit routes**
+  - select **Add Route**
+  - in **Destination** input  choose **0.0.0.0/0**
+  - in **Target** select **NAT Gateway**
+  - in the input below previus step select the name of the previus NAT gateway created, in our case is **nat-078e7ad7b1af92f83**.
+  - finally click in **Save Changes**
+  - make the same to the second private subnet in our case **ml-api-vpc-rtb-private2-us-east-1a**
+    
+### THIS IS THE FINAL SETTING FOR OUR VPC
+
+<img width="1475" height="342" alt="image" src="https://github.com/user-attachments/assets/ef23650e-4874-44d0-b0aa-deba00ec1fc7" />
+
+
 ### 3. Create Security Groups
 
   ### security group to trainapi
