@@ -52,7 +52,7 @@ steps:
 <img width="1475" height="342" alt="image" src="https://github.com/user-attachments/assets/ef23650e-4874-44d0-b0aa-deba00ec1fc7" />
 
 
-### 3. Create Security Groups
+### 4. Create Security Groups
 
   ### security group to trainapi
 steps:
@@ -84,7 +84,7 @@ steps:
   - add another rule whit the **8002** port like the above rule
   - do the same to everything else
 
-### 4. Create an EC2 instance to trainapi
+### 5. Create an EC2 instance to trainapi
 steps:
   - go to EC2 amazon service
   - in Instances section into EC2 dashboard select **Launch instances**
@@ -162,7 +162,7 @@ docker compose up -d
 ```
   - select **Launch instance**
 
-### 5. Create an EC2 instance to inferenceapi
+### 6. Create an EC2 instance to inferenceapi
 steps:
   - go to EC2 amazon service
   - in **Instances** section into EC2 dashboard select **Launch instances**
@@ -188,7 +188,7 @@ cd  MLTradingApi/inferenceapi
 ```
   - select **Launch instance**
 
-### 6. Create an EC2 instance to client
+### 7. Create an EC2 instance to client
 steps:
   - go to EC2 amazon service
   - in **Instances section** into EC2 dashboard select **Launch instances**
@@ -211,8 +211,11 @@ steps:
 cd MLTradingApi/client-plot
 ```
   - select **Launch instance**
+### THIS IS THE FINAL INFRAESTRUCTURE OF THIS APP IN AWS
 
-### 7. Browse to Client Interface to prove the MLTradingApi
+<img width="921" height="666" alt="image" src="https://github.com/user-attachments/assets/debb6761-c52f-4d08-a207-c6ab3a24e8bd" />
+
+### 8. Browse to Client Interface to prove the MLTradingApi
 
 steps:
   - go to EC2 AWS service
