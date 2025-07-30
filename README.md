@@ -8,49 +8,49 @@ steps:
   - go to amazon VPC service
   - select **create VPC**
   - select **VPC and more**
-  - in Name tag - optional type the vpc name **(ml-api)**
-  - in IPv4 CIDR block type **10.0.0.0/16**
-  - in IPv6 CIDR block select **No IPv6 CIDR block**
-  - in Number of Availability Zones (AZs) choose **1**
-  - in Number of public subnets choose **1**
-  - in Number of private subnets choose **2**
-  - in NAT gateways choose **None**
-  - VPC endpoints chose **s3 Gateway**
+  - in **Name tag - optional** type the vpc name **(ml-api)**
+  - in **IPv4 CIDR block** type **10.0.0.0/16**
+  - in **IPv6 CIDR block** select **No IPv6 CIDR block**
+  - in **Number of Availability Zones (AZs)** choose **1**
+  - in **Number of public subnets** choose **1**
+  - in **Number of private subnets** choose **2**
+  - in **NAT gateways** choose **None**
+  - in **VPC endpoints** chose **s3 Gateway**
   - finally click in  **Create VPC**
     
 ### 2. Create a Nat Gateway
 
 steps:
   - in VPC services go to VPC dashboard
-  - in Virtual private network section choose **NAT gateways**
-  - into Nat gateways section choose **Create NAT gateway**
+  - in **Virtual private network** section choose **NAT gateways**
+  - into **Nat gateways** section choose **Create NAT gateway**
   - type a name of the nat gateway **(ml-nat-gateway-01)**
-  - in Subnet chose the previus public subnet created in the VPC
-  - in Connectivity type choose **Public**
+  - in **Subnet** choose the previus public subnet created in the VPC
+  - in **Connectivity type** choose **Public**
   - Chose **Create NAT gateway**
 
 ### 3. Create Security Groups
 
   ### security group to trainapi
 steps:
-  - go to Security section of VPC dashboard
-  - select Security groups
-  - select **Create** security group
-  - in Security group name type **"train-sec-group"**
+  - go to **Security** section of VPC dashboard
+  - select **Security groups**
+  - select **Create security group**
+  - in **Security group name** type **"train-sec-group"**
   - in description type **"allows TCP 8000 access"**
-  - in VPC choose the previus VPC created **(ml-api)**
-  - select "add-rule" in Inbound rules section
+  - in **VPC** choose the previus VPC created **(ml-api)**
+  - select **"add-rule"** in Inbound rules section
   - in **Type** choose **SSH**
   - then again select **add rule**
-  - in Type choose **Custom  TCP**, and in Port range choose **8000**
-  - In Destionation choose **Anywhere-IPv4**
+  - in **Type** choose **Custom  TCP**, and in Port range choose **8000**
+  - In **Destionation** choose **Anywhere-IPv4**
   - finally select **Create security group**
     
   ### security group to inference api
 steps:
-  - do the same, but in Security group name type **"inference-sec-group"**
-  - in description type **"allows TCP 8001 access"**
-  - in Type choose **Custom  TCP**, and in Port range choose **8001**
+  - do the same, but in **Security group name** type **"inference-sec-group"**
+  - in **description** type **"allows TCP 8001 access"**
+  - in **Type** choose **Custom  TCP**, and in Port range choose **8001**
   - do the same to everything else
 
   ### security group to Client and Plot apis
@@ -64,24 +64,24 @@ steps:
 ### 4. Create an EC2 instance to trainapi
 steps:
   - go to EC2 amazon service
-  - in Instances section into EC2 dashboard select Launch instances
-  - in Name and tags type **trainapi**
-  - in Application and OS Images (Amazon Machine Image)  select **Ubuntu Server 24.04 LTS (HVM)**
-  - in Instance type choose **t2.large** or higher
-  - in Key pair (login) select Create a new key pair
-  - in Private key file format choose **RSA**
-  - in Private key file format choose **.pem**
-  - select Create key pair, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
-  - in Network settings section select **edit**
-  - VPC - required select the previus vpc created (ml-api-vpc)
-  - in Subnet select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-1-us-east-1a)**
-  - in Auto-assign public IP select **Disable**
-  - in Firewall (security groups) select **Select existing security group**
-  - in Common security groups select ***train-sec-group**
+  - in Instances section into EC2 dashboard select **Launch instances**
+  - in **Name and tags** type **trainapi**
+  - in **Application and OS Images (Amazon Machine Image)**  select **Ubuntu Server 24.04 LTS (HVM)**
+  - in **Instance type** choose **t2.large** or higher
+  - in **Key pair (login)** select **Create a new key pair**
+  - in **Private key file format** choose **RSA**
+  - in **Private key file format** choose **.pem**
+  - select **Create key pair**, and save in a secure place the **key.pem** downloaded to access to EC2 instance through the .pem key via ssh
+  - in **Network settings** section select **edit**
+  - in **VPC - required** select the previus vpc created **(ml-api-vpc)**
+  - in **Subnet** select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-1-us-east-1a)**
+  - in **Auto-assign public IP** select **Disable**
+  - in **Firewall (security groups)** select **Select existing security group**
+  - in **Common security groups** select ***train-sec-group**
   - expand **Advanced network configuration**
-  - in Primary IP type **10.0.1.33**, leave the same in this section of Advanced network configuration
-  - in Configure storage select section change to **1x10 GiB**
-  - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of trainapi directory from this proyect or copy and paste the next bash code:
+  - in **Primary IP** type **10.0.1.33**, leave the same in this section of Advanced network configuration
+  - in **Configure storage** select section change to **1x10 GiB**
+  - in **Advanced details** section down to User **data - optional** section and in the tex box upload the build.sh file of trainapi directory from this proyect or copy and paste the next bash code:
 
 ```
 #!/bin/bash
@@ -142,24 +142,24 @@ docker compose up -d
 ### 5. Create an EC2 instance to inferenceapi
 steps:
   - go to EC2 amazon service
-  - in Instances section into EC2 dashboard select **Launch instances**
-  - in Name and tags type **inference**
-  - in Application and OS Images (Amazon Machine Image)  select **Ubuntu Server 24.04 LTS (HVM)**
-  - in Instance type choose **t2.medium** or higher
-  - in Key pair (login) select Create a new key pair or use the previus key pair created in the trainapi instance
-  - in Private key file format choose **RSA**
-  - in Private key file format choose **.pem**
-  - select Create key pair, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
-  - in Network settings section select **edit**
+  - in **Instances** section into EC2 dashboard select **Launch instances**
+  - in **Name and tags** type **inference**
+  - in **Application and OS Images (Amazon Machine Image)**  select **Ubuntu Server 24.04 LTS (HVM)**
+  - in **Instance type** choose **t2.medium** or higher
+  - in **Key pair (login)** select Create a new key pair or use the previus key pair created in the trainapi instance
+  - in **Private key** file format choose **RSA**
+  - in **Private key** file format choose **.pem**
+  - select **Create key pair**, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
+  - in **Network settings** section select **edit**
   - in **VPC - required** select the previus vpc created **(ml-api-vpc)**
-  - in Subnet select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-2-us-east-1a)**
-  - in Auto-assign public IP select **Disable**
-  - in Firewall (security groups) select **Select existing security group**
-  - in Common security groups select ***inference-sec-group**
+  - in **Subnet** select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-2-us-east-1a)**
+  - in **Auto-assign public IP** select **Disable**
+  - in **Firewall (security groups)** select **Select existing security group**
+  - in **Common security groups** select ***inference-sec-group**
   - expand **Advanced network configuration**
   - in Primary IP type **10.0.2.177**, leave the same in this section of Advanced network configuration
-  - in Configure storage leave by default
-  - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next two lines which are located almost at the end of the bash code to:
+  - in **Configure storage** leave by default
+  - in **Advanced details** section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next line which is located almost at the end of the bash code to:
 ```
 cd  MLTradingApi/inferenceapi
 ```
@@ -168,22 +168,22 @@ cd  MLTradingApi/inferenceapi
 ### 6. Create an EC2 instance to client
 steps:
   - go to EC2 amazon service
-  - in Instances section into EC2 dashboard select Launch instances
-  - in Name and tags type **client**
-  - in Application and OS Images (Amazon Machine Image)  select **Ubuntu Server 24.04 LTS (HVM)**
-  - in Instance type choose **t2.medium** or higher
-  - in Key pair (login) select Create a new key pair or use the previus key pair created in the trainapi instance
-  - in Private key file format choose **RSA**
-  - in Private key file format choose **.pem**
-  - select Create key pair, and save in a secure place the key.pem downloaded to access to EC2 instance through the .pem key via ssh
-  - in Network settings section select **edit**
-  - VPC - required select the previus vpc created **(ml-api-vpc)**
-  - in Subnet select the previus public subnet created into ml-api-vpc **(ml-api-subnet-public-1-us-east-1a)**
-  - in Auto-assign public IP select **Enable**
-  - in Firewall (security groups) select **Select existing security group**
-  - in Common security groups select ***client-sec-group**
-  - in Configure storage leave by default
-  - in Advanced details section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next two lines which are located almost at the end of the bash code to:
+  - in **Instances section** into EC2 dashboard select **Launch instances**
+  - in **Name and tags** type **client**
+  - in **Application and OS Images (Amazon Machine Image)**  select **Ubuntu Server 24.04 LTS (HVM)**
+  - in **Instance type** choose **t2.medium** or higher
+  - in **Key pair (login)** select Create a new key pair or use the previus key pair created in the trainapi instance
+  - in **Private key file format** choose **RSA**
+  - in **Private key file format** choose **.pem**
+  - select **Create key pair**, and save in a secure place the **key.pem** downloaded to access to EC2 instance through the .pem key via ssh
+  - in **Network settings** section select **edit**
+  - in **VPC - required** select the previus vpc created **(ml-api-vpc)**
+  - in **Subnet** select the previus public subnet created into ml-api-vpc **(ml-api-subnet-public-1-us-east-1a)**
+  - in **Auto-assign** public IP select **Enable**
+  - in **Firewall (security groups)** select **Select existing security group**
+  - in **Common security groups** select ***client-sec-group**
+  - in **Configure storage** leave by default
+  - in **Advanced details** section down to User **data - optional** section and in the tex box upload the build.sh file of inferenceapi directory from this proyect or copy and paste the previus bash code in the launch of trainapi EC2 instance but change this next line which is located almost at the end of the bash code to:
 ```
 cd MLTradingApi/client-plot
 ```
@@ -193,20 +193,38 @@ cd MLTradingApi/client-plot
 
 steps:
   - go to EC2 AWS service
-  - in the EC2 dashboard select instances
-  - in the instances list deployed, select client
+  - in the EC2 dashboard select **instances**
+  - from the instances list deployed, select client
   - in **Details** section look for **Public DNS** or **Public IPv4 address**
   - copy and paste whatever previus address you want in a browser
   - Into API deployed you will see a simple form to train the model
   - in the first input choose a index of those available
   - choose a start date and end date to train the model
   - then, click in **Train Model**
+    
+    <img width="1127" height="642" alt="image" src="https://github.com/user-attachments/assets/8b5db9ae-1192-4585-854d-550e00697281" />
+    
   - wait a moment while the train is executed, for S&P500 it can take at least two minuts
+    
+    <img width="681" height="678" alt="image" src="https://github.com/user-attachments/assets/139105ce-bdc6-4073-ade3-88593ba382fe" />
+    
   - then selet the ticker which you want to make the inference in the new form
   - again choose the start and end dates to make the inference
   - click in **Made Inference**, this also take any seconds
   - finally click in the new button called **Generate Gráphic**, this will show a graphic from the inference
-  - to make a new train, only close the graphic and select **New Train** at the top of the form.
+    
+    <img width="635" height="703" alt="image" src="https://github.com/user-attachments/assets/86439f6a-f2b6-4647-bd90-534e3e23a3ec" />
+
+
+    <img width="1917" height="813" alt="image" src="https://github.com/user-attachments/assets/d9ed3c25-2580-4473-907d-915a16236626" />
+
+    
+  - to make a new train, just close the graphic and select **New Train** at the top of the form.
+
+
+
+
+
 
 
 
