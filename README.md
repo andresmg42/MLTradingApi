@@ -81,7 +81,7 @@ steps:
   - in **Subnet** select the previus private subnet created into ml-api-vpc **(ml-api-subnet-private-1-us-east-1a)**
   - in **Auto-assign public IP** select **Disable**
   - in **Firewall (security groups)** select **Select existing security group**
-  - in **Common security groups** select ***train-sec-group**
+  - in **Common security groups** select **train-sec-group**
   - expand **Advanced network configuration**
   - in **Primary IP** type **10.0.1.33**, leave the same in this section of Advanced network configuration
   - in **Configure storage** select section change to **1x10 GiB**
