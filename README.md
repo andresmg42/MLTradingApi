@@ -167,7 +167,7 @@ steps:
 ```
 cd  MLTradingApi/inferenceapi
 ```
-  - select **Launch instance**}
+  - select **Launch instance**
 
 ### 6. Create an EC2 instance to client
 steps:
