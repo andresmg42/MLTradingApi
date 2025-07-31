@@ -2,6 +2,8 @@
 
 ## installation instructions: 
 
+Before to  make the next steps, you must ensure that the **Region** is **United States(N. Virginia) us-east-1** in the up section navbar.
+
 ### 1. Create a VPC in AWS:
 
 steps:
